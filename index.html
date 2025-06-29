@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tạo 1000 Link Y Chang</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 2px solid #ff69b4;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      flex: 1;
+      margin: 0 5px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff85c1;
+    }
+
+    #copyStatus {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tạo 1000 Link Y Chang</h1>
+    <input type="text" id="baseLink" placeholder="Nhập link gốc...">
+    <div class="buttons">
+      <button onclick="generateLinks()">Tạo link</button>
+      <button onclick="copyLinks()">Copy</button>
+    </div>
+    <textarea id="result" rows="20" placeholder="Kết quả sẽ hiện ở đây..."></textarea>
+    <p id="copyStatus"></p>
+  </div>
+
+  <script>
+    function generateLinks() {
+      const baseLink = document.getElementById("baseLink").value.trim();
+      const result = document.getElementById("result");
+      const copyStatus = document.getElementById("copyStatus");
+      copyStatus.textContent = "";
+
+      if (!baseLink.startsWith("http")) {
+        result.value = "❌ Link không hợp lệ. Hãy nhập link bắt đầu bằng http hoặc https.";
+        return;
+      }
+
+      let links = Array(1000).fill(baseLink).join("\n");
+      result.value = links;
+    }
+
+    function copyLinks() {
+      const result = document.getElementById("result");
+      const copyStatus = document.getElementById("copyStatus");
+
+      if (result.value.trim() === "") {
+        copyStatus.textContent = "⚠️ Không có nội dung để sao chép.";
+        copyStatus.style.color = "red";
+        return;
+      }
+
+      result.select();
+      result.setSelectionRange(0, 99999); // Mobile
+      document.execCommand("copy");
+
+      copyStatus.textContent = "✅ Đã sao chép 1000 link!";
+      copyStatus.style.color = "green";
+    }
+  </script>
+</body>
+</html>
